@@ -1,26 +1,26 @@
-# Use an official Node.js runtime as the base image
-FROM node:18
+# Use a specific Node.js version for consistency
+FROM node:18-alpine
 
-# Set the working directory
-WORKDIR /usr/src/app
+# Set the working directory in the container
+WORKDIR /app
 
-# Copy package.json and package-lock.json
+# Copy only package.json and package-lock.json first to leverage Docker caching
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm install --legacy-peer-deps
 
 # Copy the rest of the application code
 COPY . .
 
-# Install TypeScript globally for build
-RUN npm install -g typescript
-
-# Compile TypeScript files
+# Build the TypeScript code into JavaScript
 RUN npm run build
 
-# Expose the application port
+# Set environment variable (optional, if required)
+ENV NODE_ENV=production
+
+# Expose the port your app runs on
 EXPOSE 5000
 
-# Start the application
+# Command to run the application
 CMD ["node", "build/server.js"]

@@ -1,23 +1,23 @@
-# Use an official Node.js runtime as the base image
-FROM node:18-alpine
+# Use a base Node.js image
+FROM node:18
 
-# Set the working directory inside the container
+# Set the working directory
 WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json into the container
+# Copy package.json and package-lock.json
 COPY package*.json ./
 
 # Install dependencies
 RUN npm install
 
-# Copy the rest of the application files
+# Copy the rest of the application code
 COPY . .
 
-# Compile TypeScript to JavaScript (if your project uses TypeScript)
+# Compile TypeScript code
 RUN npm run build
 
-# Expose port 5000
+# Expose the port the app runs on
 EXPOSE 5000
 
 # Start the application
-CMD ["npm", "run", "start"]
+CMD ["node", "build/server.js"]

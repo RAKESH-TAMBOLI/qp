@@ -16,8 +16,8 @@ COPY . .
 # Compile TypeScript to JavaScript (if your project uses TypeScript)
 RUN npm run build
 
-# Expose port 5000
-EXPOSE 5000
+# Expose the port the app runs on (replace 3000 with your app's port)
+EXPOSE 3000
 
 # Start the application
 CMD ["npm", "run", "start"]

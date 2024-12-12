@@ -1,21 +1,24 @@
-# Use an official Node.js runtime as the base image
+# Use a base image with a compatible Node.js version
 FROM node:18
 
-# Set the working directory in the container
-WORKDIR /usr/src/app
+# Set the working directory inside the container
+WORKDIR /app
 
-# Copy the package.json and package-lock.json first
-# This helps leverage Docker cache to avoid re-running npm install every time
-COPY package*.json ./
+# Copy package.json and package-lock.json into the container
+COPY package.json /app/
+COPY package-lock.json /app/ # Include if available
 
-# Install the dependencies
-RUN npm install
+# Install dependencies
+RUN npm install --legacy-peer-deps
 
-# Copy the rest of the application code into the container
-COPY . .
+# Copy the rest of the application code
+COPY . /app
 
-# Expose the port the app runs on (if needed)
+# Build the TypeScript files
+RUN npm run build
+
+# Expose the application port
 EXPOSE 5000
 
-# Run the application
+# Start the application
 CMD ["npm", "start"]

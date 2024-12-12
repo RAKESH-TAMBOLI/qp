@@ -4,8 +4,8 @@
     "description": "",
     "main": "src/server.ts",
     "scripts": {
-        "start": "node build/server.js",
-        "postinstall": "tsc"
+        "start": "node dist/server.js",
+        "build": "tsc"
     },
     "author": "",
     "license": "MIT",

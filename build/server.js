@@ -15,7 +15,7 @@ const GroceryItem_2 = require("./controllers/GroceryItem");
 const router = (0, express_1.default)();
 /** Connect to Mongo */
 mongoose_1.default
-    .connect(config_1.config.mongo.url, { retryWrites: true, w: 'majority' })
+    .connect("mongodb://host.docker.internal:27017/qpdatabase", { retryWrites: true, w: 'majority' })
     .then(() => {
     Logging_1.default.info('Mongo connected successfully.');
     StartServer();

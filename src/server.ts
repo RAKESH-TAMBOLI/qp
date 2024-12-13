@@ -12,7 +12,7 @@ const router = express();
 
 /** Connect to Mongo */
 mongoose
-    .connect(config.mongo.url, { retryWrites: true, w: 'majority' })
+    .connect("mongodb://host.docker.internal:27017/qpdatabase", { retryWrites: true, w: 'majority' })
     .then(() => {
         Logging.info('Mongo connected successfully.');
         StartServer();

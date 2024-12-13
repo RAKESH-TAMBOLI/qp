@@ -1,20 +1,23 @@
-# Use a Node.js base image
+# Step 1: Use Node.js base image
 FROM node:18
 
-# Set the working directory
+# Step 2: Set working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json
+# Step 3: Copy package.json and package-lock.json
 COPY package*.json ./
 
-# Install dependencies
+# Step 4: Install dependencies
 RUN npm install
 
-# Copy the rest of the application code
+# Step 5: Copy the entire project to the container
 COPY . .
 
-# Expose the application port
+# Step 6: Compile TypeScript to JavaScript
+RUN npm run build
+
+# Step 7: Expose the application port
 EXPOSE 5000
 
-# Command to start the application
+# Step 8: Command to start the application
 CMD ["npm", "start"]
